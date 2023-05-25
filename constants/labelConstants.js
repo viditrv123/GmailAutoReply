@@ -2,7 +2,7 @@
 
 const LABEL_CONSTANTS = {
   VACCATION: {
-    ID: 'VACCATION',
+    ID: 'VACATION',
     BG_COLOR: '#711a36',
     TEXT_COLOR: '#000000'
   }

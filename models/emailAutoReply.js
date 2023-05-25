@@ -41,10 +41,11 @@ const loadSavedCredentialsIfExist = async () => {
   try {
     const content = fs.readFileSync(TOKEN_PATH)
     const credentials = JSON.parse(content)
+    console.log('credentials')
+    console.log(credentials)
     return google.auth.fromJSON(credentials)
   } catch (err) {
-    console.error('Error occured while loading the credentials' + err)
-    throw err
+    return null
   }
 }
 
