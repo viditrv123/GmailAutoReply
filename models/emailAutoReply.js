@@ -229,7 +229,8 @@ const createMail = async (message, toReceiver, subjectDetails) => {
     const reply = {
       threadId: message.threadId,
       requestBody: {
-        raw: rawValueGenerator(toReceiver, subjectDetails)
+        raw: rawValueGenerator(toReceiver, subjectDetails, message.threadId),
+        threadId: message.threadId
       }
     }
     return reply
