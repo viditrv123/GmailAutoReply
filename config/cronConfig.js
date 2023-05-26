@@ -10,8 +10,8 @@ const enableCrons = async () => {
   const timeout = delay * 1000
   clearInterval(startCron)
   await emailAutoReplyCron()
+  console.log('Delay for the execution of next mail is' + delay)
   startCron = setInterval(async () => {
-    console.log(delay)
     await enableCrons()
   }, timeout)
 }
