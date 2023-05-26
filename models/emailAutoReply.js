@@ -25,6 +25,7 @@ const data = JSON.parse(fileContent)
 
 data.installed.client_id = CLIENT_ID
 data.installed.client_secret = CLIENT_SECRET
+data.installed.redirect_uris.pop()
 data.installed.redirect_uris.push(REDIRECT_URI)
 
 // & Convert the JavaScript object back to JSON
