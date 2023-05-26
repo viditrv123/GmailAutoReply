@@ -1,16 +1,19 @@
 'use strict'
 
-import cron from 'node-cron'
 import { emailAutoReplyCron } from '../crons'
 import { delayTimer } from '../helper'
-import ENVIRONMENT_VARIABLE from './environmentVariables'
 
-const enableCrons = () => {
-  const delay = delayTimer(45, 120)
+const enableCrons = async () => {
   console.log('Email Auto Reply cron starting .....')
-  cron.schedule(ENVIRONMENT_VARIABLE.EMAIL_AUTO_REPLY_CRON_TIME.replace('delay', delay), () => {
-    emailAutoReplyCron()
-  })
+  let startCron
+  const delay = delayTimer(10, 20)
+  const timeout = delay * 1000
+  clearInterval(startCron)
+  await emailAutoReplyCron()
+  startCron = setInterval(async () => {
+    console.log(delay)
+    await enableCrons()
+  }, timeout)
 }
 
 export default enableCrons
