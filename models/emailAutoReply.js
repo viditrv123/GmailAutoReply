@@ -41,8 +41,6 @@ const loadSavedCredentialsIfExist = async () => {
   try {
     const content = fs.readFileSync(TOKEN_PATH)
     const credentials = JSON.parse(content)
-    console.log('credentials')
-    console.log(credentials)
     return google.auth.fromJSON(credentials)
   } catch (err) {
     return null
@@ -120,6 +118,10 @@ const emailAutoReplyHandler = async (auth) => {
 
     threadInfo = threadInfo.filter((detaials) => detaials.messages.length === 1 && detaials.messages[0].labelIds.includes('UNREAD'))
 
+    if (threadInfo.length === 0) {
+      return 0
+    }
+
     let labelDetais = await checkLableExists(auth)
 
     // & If label already exists then no need to make another label else create a new label
@@ -133,6 +135,7 @@ const emailAutoReplyHandler = async (auth) => {
     }))
 
     await multipleMessageManager(auth, threadInfo)
+    return threadInfo.length
   } catch (err) {
     console.error('Error occured in the email handler' + err)
     throw err
